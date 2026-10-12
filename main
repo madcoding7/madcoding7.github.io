@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #111; color: #eee; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    #search { display: block; width: 100%; max-width: 400px; margin: 0 auto 20px; padding: 10px; border-radius: 6px; border: none; font-size: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .card { background: #222; border-radius: 8px; padding: 16px; text-decoration: none; color: inherit; transition: transform 0.15s; }
+    .card:hover { transform: scale(1.03); background: #2b2b2b; }
+    .card h2 { font-size: 18px; margin: 0 0 8px; }
+    .card p { font-size: 14px; color: #aaa; margin: 0; }
+  </style>
+</head>
+<body>
+  <h1>Game Hub</h1>
+  <input id="search" type="text" placeholder="Search games...">
+  <div class="grid" id="grid"></div>
+
+  <script>
+    // Add your games here
+    const games = [
+      { title: "Example Game", description: "A short description.", url: "games/example.html" },
+      { title: "Another Game", description: "Another description.", url: "games/another.html" }
+    ];
+
+    const grid = document.getElementById("grid");
+    const search = document.getElementById("search");
+
+    function render(list) {
+      grid.innerHTML = "";
+      list.forEach(game => {
+        const a = document.createElement("a");
+        a.className = "card";
+        a.href = game.url;
+        a.innerHTML = `<h2>${game.title}</h2><p>${game.description}</p>`;
+        grid.appendChild(a);
+      });
+    }
+
+    search.addEventListener("input", () => {
+      const q = search.value.toLowerCase();
+      render(games.filter(g => g.title.toLowerCase().includes(q)));
+    });
+
+    render(games);
+  </script>
+</body>
+</html>
